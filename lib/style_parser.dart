@@ -1,16 +1,16 @@
 library style_parser;
 
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart' as parser;
 
 part 'css_to_textstyle.dart';
 
 class StyleParser {
   StyleParser._();
 
-  static final _parser = Parser.instance;
+  static final _parser = _Parser.instance;
 
-  static Map<String, TextStyle> cssToTextStyle(String style,
-      {TextStyle? defaultStyle}) {
-    return _parser.cssToTextStyle(style, defaultStyle: defaultStyle);
+  static TextSpan cssToTextSpan(String style) {
+    return _parser.cssToTextStyle(style);
   }
 }
