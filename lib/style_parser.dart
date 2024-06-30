@@ -1,6 +1,7 @@
 library style_parser;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Element;
+import 'package:html/dom.dart';
 import 'package:html/parser.dart' as parser;
 
 part 'css_to_textstyle.dart';

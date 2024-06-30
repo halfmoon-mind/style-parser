@@ -10,33 +10,42 @@ class _Parser {
   TextSpan cssToTextStyle(String style, {TextStyle? defaultStyle}) {
     TextStyle textStyle = defaultStyle ?? const TextStyle();
 
-    final parsedHtml = parser.parse(style);
-    print(parsedHtml);
-    print("CLASS NAME : ${parsedHtml.body?.className}");
-    print("CHILDREN : ${parsedHtml.children}");
-    print("INNER TEXT : ${parsedHtml.body?.text}");
+    final List<Element> parsedHtml = parser.parse(style).body!.children;
+    List<TextSpan> textSpans = [];
+    for (var child in parsedHtml) {
+      print("CHILDREN : ${child}");
 
-    // font size
-    final size =
-        RegExp(r'font-size:[ ]?(\d+)pt;?').firstMatch(style)?.group(1)?.trim();
-    if (size != null) {
-      textStyle = textStyle.merge(
-        TextStyle(fontSize: double.parse(size)),
-      );
+      // font size
+      final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (size != null) {
+        textStyle = textStyle.merge(
+          TextStyle(fontSize: double.parse(size)),
+        );
+      }
+
+      // font weight
+      final fontWeight = RegExp(r'font-weight:[ ]?(\d+);?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (fontWeight != null) {
+        textStyle = textStyle.merge(
+          TextStyle(
+            fontWeight: _FontWeight.fontWeight(fontWeight),
+          ),
+        );
+      }
+
+      textSpans.add(TextSpan(
+        text: child.text,
+        style: textStyle,
+      ));
     }
 
-    // font weight
-    final fontWeight =
-        RegExp(r'font-weight:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
-    if (fontWeight != null) {
-      textStyle = textStyle.merge(
-        TextStyle(
-          fontWeight: _FontWeight.fontWeight(fontWeight),
-        ),
-      );
-    }
-
-    return TextSpan(style: textStyle, text: parsedHtml.body?.text ?? '');
+    return TextSpan(children: textSpans);
   }
 }
 
