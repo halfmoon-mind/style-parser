@@ -1,7 +1,8 @@
 name: style_parser
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: "this is a package to parse css to text style"
+version: 0.0.2
+homepage: https://github.com/halfmoon-mind/style-parser
+repository: https://github.com/halfmoon-mind/style-parser
 
 environment:
   sdk: ">=3.4.1 <4.0.0"
