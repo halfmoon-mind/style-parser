@@ -7,14 +7,14 @@ class _Parser {
 
   static final instance = _Parser._();
 
-  TextSpan cssToTextStyle(String style, {TextStyle? defaultStyle}) {
-    TextStyle textStyle = defaultStyle ?? const TextStyle();
-
+  TextSpan cssToTextStyle(
+    String style, {
+    Map<String, TextStyle>? existingClassStyle,
+  }) {
     final List<Element> parsedHtml = parser.parse(style).body!.children;
     List<TextSpan> textSpans = [];
     for (var child in parsedHtml) {
-      print("CHILDREN : ${child}");
-
+      TextStyle textStyle = const TextStyle();
       // font size
       final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
           .firstMatch(style)
