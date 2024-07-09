@@ -25,8 +25,20 @@ class _Parser {
 TextSpan _tourChildText(TextStyle textStyle, Element html,
     [Map<String, TextStyle>? existingClassStyle]) {
   if (html.children.isEmpty) {
-    _HtmlTag tag = _HtmlTag.fromString(html.localName ?? 'p');
-    textStyle = textStyle.merge(tag.tagStyle);
+    if (existingClassStyle != null) {
+      final className = html.attributes['class'] ?? "";
+      final classStyle = existingClassStyle[className];
+      if (classStyle != null) {
+        textStyle = textStyle.merge(classStyle);
+      }
+
+      final localName = html.localName;
+      final tagStyle = existingClassStyle[localName];
+      if (tagStyle != null) {
+        textStyle = textStyle.merge(tagStyle);
+      }
+    }
+
     return TextSpan(
       text: html.text,
       style: textStyle,
@@ -35,8 +47,30 @@ TextSpan _tourChildText(TextStyle textStyle, Element html,
 
   List<TextSpan> children = [];
   for (var child in html.children) {
-    _HtmlTag tag = _HtmlTag.fromString(child.localName ?? 'p');
-    textStyle = textStyle.merge(tag.tagStyle);
+    if (child.localName == "br") {
+      children.add(const TextSpan(text: "\n"));
+      continue;
+    }
+    if (child.localName == "strong") {
+      textStyle = textStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+    if (child.localName == "em") {
+      textStyle = textStyle.merge(const TextStyle(fontStyle: FontStyle.italic));
+    }
+
+    if (existingClassStyle != null) {
+      final className = html.attributes['class'] ?? "";
+      final classStyle = existingClassStyle[className];
+      if (classStyle != null) {
+        textStyle = textStyle.merge(classStyle);
+      }
+
+      final localName = html.localName;
+      final tagStyle = existingClassStyle[localName];
+      if (tagStyle != null) {
+        textStyle = textStyle.merge(tagStyle);
+      }
+    }
 
     final style = child.attributes['style'] ?? "";
 
@@ -80,43 +114,6 @@ TextSpan _tourChildText(TextStyle textStyle, Element html,
     children: children,
     style: textStyle,
   );
-}
-
-enum _HtmlTag {
-  h1,
-  h2,
-  h3,
-  p;
-
-  TextStyle get tagStyle {
-    switch (this) {
-      case _HtmlTag.h1:
-        return TextStyle(fontSize: 24, fontWeight: FontWeight.w700);
-      case _HtmlTag.h2:
-        return TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
-      case _HtmlTag.h3:
-        return TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
-      case _HtmlTag.p:
-        return TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
-      default:
-        return TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
-    }
-  }
-
-  static _HtmlTag fromString(String tag) {
-    switch (tag) {
-      case 'h1':
-        return _HtmlTag.h1;
-      case 'h2':
-        return _HtmlTag.h2;
-      case 'h3':
-        return _HtmlTag.h3;
-      case 'p':
-        return _HtmlTag.p;
-      default:
-        return _HtmlTag.p;
-    }
-  }
 }
 
 enum _FontWeight {

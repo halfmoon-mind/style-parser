@@ -1,3 +1,7 @@
+## 0.0.5
+
+- add existing tag style
+
 ## 0.0.4
 
 - recursive tag detect
