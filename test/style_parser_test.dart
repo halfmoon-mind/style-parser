@@ -60,4 +60,16 @@ void main() {
       print("$child / ${child.toPlainText()}");
     }
   });
+
+  test("스트롱", () {
+    const originalText = '''
+<p><strong>HI</strong></p>
+<p><em>HI</em></p>
+<p><strong><em>HI</em></strong></p>
+''';
+    final textSpan = StyleParser.cssToTextSpan(originalText);
+    for (var child in textSpan.children!) {
+      print("${child.style} / ${child.toPlainText()}");
+    }
+  });
 }

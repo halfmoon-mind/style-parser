@@ -10,20 +10,29 @@ class _Parser {
   TextSpan cssToTextStyle(
     String style, {
     Map<String, TextStyle>? existingClassStyle,
+    Map<String, TextStyle>? existingTagStyle,
   }) {
     final List<Element> parsedHtml = parser.parse(style).body!.children;
     List<TextSpan> textSpans = [];
     for (var child in parsedHtml) {
-      textSpans
-          .add(_tourChildText(const TextStyle(), child, existingClassStyle));
+      textSpans.add(_tourChildText(
+        const TextStyle(),
+        child,
+        existingClassStyle,
+        existingTagStyle,
+      ));
     }
 
     return TextSpan(children: textSpans);
   }
 }
 
-TextSpan _tourChildText(TextStyle textStyle, Element html,
-    [Map<String, TextStyle>? existingClassStyle]) {
+TextSpan _tourChildText(
+  TextStyle textStyle,
+  Element html, [
+  Map<String, TextStyle>? existingClassStyle,
+  Map<String, TextStyle>? existingTagStyle,
+]) {
   if (html.children.isEmpty) {
     if (existingClassStyle != null) {
       final className = html.attributes['class'] ?? "";
@@ -31,12 +40,20 @@ TextSpan _tourChildText(TextStyle textStyle, Element html,
       if (classStyle != null) {
         textStyle = textStyle.merge(classStyle);
       }
-
+    }
+    if (existingTagStyle != null) {
       final localName = html.localName;
-      final tagStyle = existingClassStyle[localName];
+      final tagStyle = existingTagStyle[localName];
       if (tagStyle != null) {
         textStyle = textStyle.merge(tagStyle);
       }
+    }
+
+    if (html.localName == "strong") {
+      textStyle = textStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+    if (html.localName == "em") {
+      textStyle = textStyle.merge(const TextStyle(fontStyle: FontStyle.italic));
     }
 
     return TextSpan(
@@ -64,9 +81,19 @@ TextSpan _tourChildText(TextStyle textStyle, Element html,
       if (classStyle != null) {
         textStyle = textStyle.merge(classStyle);
       }
+    }
 
+    if (existingClassStyle != null) {
+      final className = html.attributes['class'] ?? "";
+      final classStyle = existingClassStyle[className];
+      if (classStyle != null) {
+        textStyle = textStyle.merge(classStyle);
+      }
+    }
+
+    if (existingTagStyle != null) {
       final localName = html.localName;
-      final tagStyle = existingClassStyle[localName];
+      final tagStyle = existingTagStyle[localName];
       if (tagStyle != null) {
         textStyle = textStyle.merge(tagStyle);
       }
