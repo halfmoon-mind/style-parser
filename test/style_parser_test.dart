@@ -49,4 +49,15 @@ void main() {
       print("$child / ${child.toPlainText()}");
     }
   });
+
+  test("태그 기존 정보들 추가된 경우", () {
+    const originalText = '''
+<h1 style="padding-bottom:10px;">ㅇㅇ</h1>
+          <p>ㅇㅇㅇ</p>
+''';
+    final textSpan = StyleParser.cssToTextSpan(originalText);
+    for (var child in textSpan.children!) {
+      print("$child / ${child.toPlainText()}");
+    }
+  });
 }

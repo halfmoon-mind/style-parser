@@ -11,7 +11,9 @@ class StyleParser {
 
   static final _parser = _Parser.instance;
 
-  static TextSpan cssToTextSpan(String style) {
-    return _parser.cssToTextStyle(style);
+  static TextSpan cssToTextSpan(String style,
+      {Map<String, TextStyle>? existingClassStyle}) {
+    return _parser.cssToTextStyle(style,
+        existingClassStyle: existingClassStyle);
   }
 }
