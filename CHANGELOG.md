@@ -1,3 +1,7 @@
+## 0.0.8
+
+- strong doesn't work
+
 ## 0.0.7
 
 - apply strong and em when user try to set style with existing tag and class style

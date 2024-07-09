@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:style_parser/style_parser.dart';
@@ -65,15 +66,11 @@ void main() {
     const originalText = '''
 <p><strong>HI</strong></p>
 <p><em>HI</em></p>
-<p>
-  <strong>
-    <em>
-    HI
-    </em>
-  </strong>
-</p>
+<p><strong><em>HI</em></strong></p>
 ''';
-    final textSpan = StyleParser.cssToTextSpan(originalText);
+    final textSpan = StyleParser.cssToTextSpan(originalText, existingTagStyle: {
+      "p": TextStyle(fontSize: 12),
+    });
     for (var child in textSpan.children!) {
       print("${child.style} / ${child.toPlainText()}");
     }

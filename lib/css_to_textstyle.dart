@@ -68,20 +68,6 @@ TextSpan _tourChildText(
       children.add(const TextSpan(text: "\n"));
       continue;
     }
-    if (child.localName == "strong") {
-      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
-    }
-    if (child.localName == "em") {
-      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
-    }
-
-    if (existingClassStyle != null) {
-      final className = html.attributes['class'] ?? "";
-      final classStyle = existingClassStyle[className];
-      if (classStyle != null) {
-        textStyle = textStyle.merge(classStyle);
-      }
-    }
 
     if (existingClassStyle != null) {
       final className = html.attributes['class'] ?? "";
@@ -132,6 +118,13 @@ TextSpan _tourChildText(
           color: Color(int.parse('0xFF$color')),
         ),
       );
+    }
+
+    if (child.localName == "strong") {
+      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
+    }
+    if (child.localName == "em") {
+      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
     }
 
     children.add(_tourChildText(textStyle, child));
