@@ -170,12 +170,16 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
   RegExp exp = RegExp(r'([a-zA-Z0-9\.\#]+)\s*\{([^}]*)\}');
   Iterable<Match> matches = exp.allMatches(style);
 
+  if (matches.isEmpty) {
+    return result;
+  }
+
   for (Match match in matches) {
     String selector = match.group(1)!;
     String properties = match.group(2)!;
     TextStyle textStyle = const TextStyle();
 
-    final fontWeight = RegExp(r'font-weight:[ ]?(\d+);?')
+    final fontWeight = RegExp(r'font-weight:[ ]?(\w+);?')
         .firstMatch(properties)
         ?.group(1)
         ?.trim();
@@ -200,7 +204,20 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
     if (color != null) {
       textStyle = textStyle.copyWith(color: Color(int.parse('0xFF$color')));
     }
-    result[selector] = textStyle;
+
+    final fontStyle = RegExp(r'font-style:[ ]?(\w+);?')
+        .firstMatch(properties)
+        ?.group(1)
+        ?.trim();
+    if (fontStyle != null) {
+      textStyle = textStyle.copyWith(
+        fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal,
+      );
+    }
+
+    if (textStyle != const TextStyle()) {
+      result[selector] = textStyle;
+    }
   }
   return result;
 }

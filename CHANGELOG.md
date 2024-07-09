@@ -1,3 +1,7 @@
+## 0.0.13
+
+- add test
+
 ## 0.0.12
 
 - set fontstyle copywith not merge
