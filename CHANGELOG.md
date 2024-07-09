@@ -1,3 +1,7 @@
+## 0.0.7
+
+- apply strong and em when user try to set style with existing tag and class style
+
 ## 0.0.6
 
 - devide tag and class for existing style

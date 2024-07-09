@@ -50,10 +50,10 @@ TextSpan _tourChildText(
     }
 
     if (html.localName == "strong") {
-      textStyle = textStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
     }
     if (html.localName == "em") {
-      textStyle = textStyle.merge(const TextStyle(fontStyle: FontStyle.italic));
+      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
     }
 
     return TextSpan(
@@ -69,10 +69,10 @@ TextSpan _tourChildText(
       continue;
     }
     if (child.localName == "strong") {
-      textStyle = textStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
     }
     if (child.localName == "em") {
-      textStyle = textStyle.merge(const TextStyle(fontStyle: FontStyle.italic));
+      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
     }
 
     if (existingClassStyle != null) {

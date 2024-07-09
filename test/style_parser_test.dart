@@ -65,7 +65,13 @@ void main() {
     const originalText = '''
 <p><strong>HI</strong></p>
 <p><em>HI</em></p>
-<p><strong><em>HI</em></strong></p>
+<p>
+  <strong>
+    <em>
+    HI
+    </em>
+  </strong>
+</p>
 ''';
     final textSpan = StyleParser.cssToTextSpan(originalText);
     for (var child in textSpan.children!) {
