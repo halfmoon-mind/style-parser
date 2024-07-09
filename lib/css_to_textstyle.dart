@@ -180,14 +180,16 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
         ?.group(1)
         ?.trim();
     if (fontWeight != null) {
-      textStyle = textStyle
-          .merge(TextStyle(fontWeight: _FontWeight.fontWeight(fontWeight)));
+      textStyle =
+          textStyle.copyWith(fontWeight: _FontWeight.fontWeight(fontWeight));
     }
 
-    final size =
-        RegExp(r'font-size:[ ]?(\d+)pt;?').firstMatch(style)?.group(1)?.trim();
+    final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
+        .firstMatch(properties)
+        ?.group(1)
+        ?.trim();
     if (size != null) {
-      textStyle = textStyle.merge(TextStyle(fontSize: double.parse(size)));
+      textStyle = textStyle.copyWith(fontSize: double.parse(size));
     }
 
     // font color
@@ -196,9 +198,7 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
         ?.group(1)
         ?.trim();
     if (color != null) {
-      textStyle = textStyle.merge(
-        TextStyle(color: Color(int.parse('0xFF$color'))),
-      );
+      textStyle = textStyle.copyWith(color: Color(int.parse('0xFF$color')));
     }
     result[selector] = textStyle;
   }

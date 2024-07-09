@@ -1,3 +1,7 @@
+## 0.0.12
+
+- set fontstyle copywith not merge
+
 ## 0.0.11
 
 - class style apply at last
