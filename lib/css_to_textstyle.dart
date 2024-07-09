@@ -14,39 +14,65 @@ class _Parser {
     final List<Element> parsedHtml = parser.parse(style).body!.children;
     List<TextSpan> textSpans = [];
     for (var child in parsedHtml) {
-      TextStyle textStyle = const TextStyle();
-      // font size
-      final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
-          .firstMatch(style)
-          ?.group(1)
-          ?.trim();
-      if (size != null) {
-        textStyle = textStyle.merge(
-          TextStyle(fontSize: double.parse(size)),
-        );
-      }
-
-      // font weight
-      final fontWeight = RegExp(r'font-weight:[ ]?(\d+);?')
-          .firstMatch(style)
-          ?.group(1)
-          ?.trim();
-      if (fontWeight != null) {
-        textStyle = textStyle.merge(
-          TextStyle(
-            fontWeight: _FontWeight.fontWeight(fontWeight),
-          ),
-        );
-      }
-
-      textSpans.add(TextSpan(
-        text: child.text,
-        style: textStyle,
-      ));
+      textSpans.add(tourChildText(const TextStyle(), child));
     }
 
     return TextSpan(children: textSpans);
   }
+}
+
+TextSpan tourChildText(TextStyle textStyle, Element html) {
+  if (html.children.isEmpty) {
+    return TextSpan(
+      text: html.text,
+      style: textStyle,
+    );
+  }
+
+  List<TextSpan> children = [];
+  for (var child in html.children) {
+    final style = child.attributes['style'] ?? "";
+
+    // font size
+    final size =
+        RegExp(r'font-size:[ ]?(\d+)pt;?').firstMatch(style)?.group(1)?.trim();
+    if (size != null) {
+      textStyle = textStyle.merge(
+        TextStyle(fontSize: double.parse(size)),
+      );
+    }
+
+    // font weight
+    final fontWeight =
+        RegExp(r'font-weight:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
+    if (fontWeight != null) {
+      textStyle = textStyle.merge(
+        TextStyle(
+          fontWeight: _FontWeight.fontWeight(fontWeight),
+        ),
+      );
+    }
+
+    // font color
+    final color = RegExp(r'color:[ ]?#([0-9a-fA-F]{6});?')
+        .firstMatch(style)
+        ?.group(1)
+        ?.trim();
+    if (color != null) {
+      textStyle = textStyle.merge(
+        TextStyle(
+          color: Color(int.parse('0xFF$color')),
+        ),
+      );
+    }
+
+    children.add(tourChildText(textStyle, child));
+  }
+
+  return TextSpan(
+    children: children,
+    style: textStyle,
+  );
 }
 
 enum _FontWeight {
