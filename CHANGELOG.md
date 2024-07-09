@@ -1,3 +1,7 @@
+## 0.0.6
+
+- devide tag and class for existing style
+
 ## 0.0.5
 
 - add existing tag style
