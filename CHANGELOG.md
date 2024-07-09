@@ -1,3 +1,7 @@
+## 0.0.9
+
+- style parser
+
 ## 0.0.8
 
 - strong doesn't work

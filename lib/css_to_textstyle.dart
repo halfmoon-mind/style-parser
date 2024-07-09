@@ -7,7 +7,7 @@ class _Parser {
 
   static final instance = _Parser._();
 
-  TextSpan cssToTextStyle(
+  TextSpan htmlTagToTextSpan(
     String style, {
     Map<String, TextStyle>? existingClassStyle,
     Map<String, TextStyle>? existingTagStyle,
@@ -24,6 +24,10 @@ class _Parser {
     }
 
     return TextSpan(children: textSpans);
+  }
+
+  Map<String, TextStyle> cssToTextStyle(String style) {
+    return _getTextStyleFromCss(style);
   }
 }
 
@@ -134,6 +138,46 @@ TextSpan _tourChildText(
     children: children,
     style: textStyle,
   );
+}
+
+Map<String, TextStyle> _getTextStyleFromCss(String style) {
+  Map<String, TextStyle> result = {};
+  RegExp exp = RegExp(r'([a-zA-Z0-9\.\#]+)\s*\{([^}]*)\}');
+  Iterable<Match> matches = exp.allMatches(style);
+
+  for (Match match in matches) {
+    String selector = match.group(1)!;
+    String properties = match.group(2)!;
+    TextStyle textStyle = const TextStyle();
+
+    final fontWeight = RegExp(r'font-weight:[ ]?(\d+);?')
+        .firstMatch(properties)
+        ?.group(1)
+        ?.trim();
+    if (fontWeight != null) {
+      textStyle = textStyle
+          .merge(TextStyle(fontWeight: _FontWeight.fontWeight(fontWeight)));
+    }
+
+    final size =
+        RegExp(r'font-size:[ ]?(\d+)pt;?').firstMatch(style)?.group(1)?.trim();
+    if (size != null) {
+      textStyle = textStyle.merge(TextStyle(fontSize: double.parse(size)));
+    }
+
+    // font color
+    final color = RegExp(r'color:[ ]?#([0-9a-fA-F]{6});?')
+        .firstMatch(properties)
+        ?.group(1)
+        ?.trim();
+    if (color != null) {
+      textStyle = textStyle.merge(
+        TextStyle(color: Color(int.parse('0xFF$color'))),
+      );
+    }
+    result[selector] = textStyle;
+  }
+  return result;
 }
 
 enum _FontWeight {
