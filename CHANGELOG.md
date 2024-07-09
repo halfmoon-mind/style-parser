@@ -1,3 +1,7 @@
+## 0.0.10
+
+- multiple class style
+
 ## 0.0.9
 
 - style parser

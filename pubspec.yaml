@@ -1,6 +1,6 @@
 name: style_parser
 description: "this is a package to parse css to text style, so you can use css to style your text in flutter."
-version: 0.0.9
+version: 0.0.10
 homepage: https://github.com/halfmoon-mind/style-parser
 repository: https://github.com/halfmoon-mind/style-parser
 

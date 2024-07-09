@@ -39,10 +39,12 @@ TextSpan _tourChildText(
 ]) {
   if (html.children.isEmpty) {
     if (existingClassStyle != null) {
-      final className = html.attributes['class'] ?? "";
-      final classStyle = existingClassStyle[className];
-      if (classStyle != null) {
-        textStyle = textStyle.merge(classStyle);
+      final className = (html.attributes['class'] ?? "").split(' ');
+      for (final name in className) {
+        final classStyle = existingClassStyle[name];
+        if (classStyle != null) {
+          textStyle = textStyle.merge(classStyle);
+        }
       }
     }
     if (existingTagStyle != null) {
@@ -74,10 +76,12 @@ TextSpan _tourChildText(
     }
 
     if (existingClassStyle != null) {
-      final className = html.attributes['class'] ?? "";
-      final classStyle = existingClassStyle[className];
-      if (classStyle != null) {
-        textStyle = textStyle.merge(classStyle);
+      final className = (html.attributes['class'] ?? "").split(' ');
+      for (final name in className) {
+        final classStyle = existingClassStyle[name];
+        if (classStyle != null) {
+          textStyle = textStyle.merge(classStyle);
+        }
       }
     }
 
