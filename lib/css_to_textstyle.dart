@@ -38,20 +38,31 @@ TextSpan _tourChildText(
   Map<String, TextStyle>? existingTagStyle,
 ]) {
   if (html.children.isEmpty) {
+    if (existingTagStyle != null) {
+      final localName = html.localName;
+      final tagStyle = existingTagStyle[localName];
+      if (tagStyle != null) {
+        textStyle = textStyle.copyWith(
+          fontSize: tagStyle.fontSize,
+          fontWeight: tagStyle.fontWeight,
+          color: tagStyle.color,
+          fontStyle: tagStyle.fontStyle,
+        );
+      }
+    }
+
     if (existingClassStyle != null) {
       final className = (html.attributes['class'] ?? "").split(' ');
       for (final name in className) {
         final classStyle = existingClassStyle[name];
         if (classStyle != null) {
-          textStyle = textStyle.merge(classStyle);
+          textStyle = textStyle.copyWith(
+            fontSize: classStyle.fontSize,
+            fontWeight: classStyle.fontWeight,
+            color: classStyle.color,
+            fontStyle: classStyle.fontStyle,
+          );
         }
-      }
-    }
-    if (existingTagStyle != null) {
-      final localName = html.localName;
-      final tagStyle = existingTagStyle[localName];
-      if (tagStyle != null) {
-        textStyle = textStyle.merge(tagStyle);
       }
     }
 
@@ -75,21 +86,31 @@ TextSpan _tourChildText(
       continue;
     }
 
+    if (existingTagStyle != null) {
+      final localName = html.localName;
+      final tagStyle = existingTagStyle[localName];
+      if (tagStyle != null) {
+        textStyle = textStyle.copyWith(
+          fontSize: tagStyle.fontSize,
+          fontWeight: tagStyle.fontWeight,
+          color: tagStyle.color,
+          fontStyle: tagStyle.fontStyle,
+        );
+      }
+    }
+
     if (existingClassStyle != null) {
       final className = (html.attributes['class'] ?? "").split(' ');
       for (final name in className) {
         final classStyle = existingClassStyle[name];
         if (classStyle != null) {
-          textStyle = textStyle.merge(classStyle);
+          textStyle = textStyle.copyWith(
+            fontSize: classStyle.fontSize,
+            fontWeight: classStyle.fontWeight,
+            color: classStyle.color,
+            fontStyle: classStyle.fontStyle,
+          );
         }
-      }
-    }
-
-    if (existingTagStyle != null) {
-      final localName = html.localName;
-      final tagStyle = existingTagStyle[localName];
-      if (tagStyle != null) {
-        textStyle = textStyle.merge(tagStyle);
       }
     }
 

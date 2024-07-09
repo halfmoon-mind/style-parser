@@ -1,3 +1,7 @@
+## 0.0.11
+
+- class style apply at last
+
 ## 0.0.10
 
 - multiple class style
