@@ -47,6 +47,7 @@ TextSpan _tourChildText(
           fontWeight: tagStyle.fontWeight,
           color: tagStyle.color,
           fontStyle: tagStyle.fontStyle,
+          backgroundColor: tagStyle.backgroundColor,
         );
       }
     }
@@ -61,6 +62,7 @@ TextSpan _tourChildText(
             fontWeight: classStyle.fontWeight,
             color: classStyle.color,
             fontStyle: classStyle.fontStyle,
+            backgroundColor: classStyle.backgroundColor,
           );
         }
       }
@@ -95,6 +97,7 @@ TextSpan _tourChildText(
           fontWeight: tagStyle.fontWeight,
           color: tagStyle.color,
           fontStyle: tagStyle.fontStyle,
+          backgroundColor: tagStyle.backgroundColor,
         );
       }
     }
@@ -109,6 +112,7 @@ TextSpan _tourChildText(
             fontWeight: classStyle.fontWeight,
             color: classStyle.color,
             fontStyle: classStyle.fontStyle,
+            backgroundColor: classStyle.backgroundColor,
           );
         }
       }

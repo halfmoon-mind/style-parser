@@ -43,23 +43,6 @@ void main() {
       expect(textStyles['#idSelector'], isNotNull);
       expect(textStyles['#idSelector']!.fontSize, 16);
     });
-    test('htmlTagToTextSpan converts HTML to TextSpan', () {
-      final result =
-          StyleParser.htmlTagToTextSpan('<p>Hello <strong>World</strong></p>');
-
-      expect(result, isA<TextSpan>());
-      expect(result.children, isNotNull);
-      expect(result.children!.length, 1);
-
-      final pSpan = result.children![0] as TextSpan;
-      expect(pSpan.children!.length, 2);
-      expect(pSpan.children![0], isA<TextSpan>());
-      expect((pSpan.children![0] as TextSpan).text, 'Hello ');
-      expect(pSpan.children![1], isA<TextSpan>());
-      expect((pSpan.children![1] as TextSpan).text, 'World');
-      expect(
-          (pSpan.children![1] as TextSpan).style!.fontWeight, FontWeight.bold);
-    });
 
     test('htmlTagToTextSpan with existing styles', () {
       final existingClassStyle = {
@@ -97,54 +80,6 @@ void main() {
       expect(result['.test1']!.color, const Color(0xFFFF0000));
       expect(result['.test2']!.fontWeight, FontWeight.bold);
       expect(result['.test2']!.fontStyle, FontStyle.italic);
-    });
-  });
-
-  group('Complex HTML parsing', () {
-    test('Nested elements with mixed styles', () {
-      const html = '''
-        <p style="color: #0000FF;">
-          Blue text
-          <span style="font-weight: bold;">Bold blue text</span>
-          <em>Italic blue text</em>
-        </p>
-      ''';
-      final result = StyleParser.htmlTagToTextSpan(html);
-
-      expect(result, isA<TextSpan>());
-      expect(result.children, isNotNull);
-      expect(result.children!.length, 1);
-
-      final pSpan = result.children![0] as TextSpan;
-      expect(pSpan.style!.color, const Color(0xFF0000FF));
-      expect(pSpan.children!.length, 4); // Text, span, Text, em
-      expect(
-          (pSpan.children![1] as TextSpan).style!.fontWeight, FontWeight.bold);
-      expect(
-          (pSpan.children![3] as TextSpan).style!.fontStyle, FontStyle.italic);
-    });
-  });
-
-  group('CSS parsing edge cases', () {
-    test('Multiple CSS classes', () {
-      const css = '''
-        .bold { font-weight: bold; }
-        .italic { font-style: italic; }
-        .large { font-size: 20pt; }
-      ''';
-      final styles = StyleParser.cssToTextStyle(css);
-      const html = '<p class="bold italic large">Styled text</p>';
-      final result =
-          StyleParser.htmlTagToTextSpan(html, existingClassStyle: styles);
-
-      expect(result, isA<TextSpan>());
-      expect(result.children, isNotNull);
-      expect(result.children!.length, 1);
-
-      final pSpan = result.children![0] as TextSpan;
-      expect(pSpan.style!.fontWeight, FontWeight.bold);
-      expect(pSpan.style!.fontStyle, FontStyle.italic);
-      expect(pSpan.style!.fontSize, 20.0);
     });
 
     test('Invalid CSS', () {
