@@ -47,6 +47,7 @@ TextSpan _tourChildText(
   Map<String, TextStyle>? existingClassStyle,
   Map<String, TextStyle>? existingTagStyle,
 ]) {
+  // when the element is a text node
   if (html.children.isEmpty) {
     if (existingTagStyle != null) {
       final localName = html.localName;
@@ -163,6 +164,17 @@ TextSpan _tourChildText(
       );
     }
 
+    // font family
+    final family =
+        RegExp(r'font-family:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
+    if (color != null) {
+      textStyle = textStyle.merge(
+        TextStyle(
+          fontFamily: family,
+        ),
+      );
+    }
+
     if (child.localName == "strong") {
       textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
     }
@@ -227,6 +239,17 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
     if (fontStyle != null) {
       textStyle = textStyle.copyWith(
         fontStyle: fontStyle == 'italic' ? FontStyle.italic : FontStyle.normal,
+      );
+    }
+
+    // font family
+    final family =
+        RegExp(r'font-family:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
+    if (color != null) {
+      textStyle = textStyle.merge(
+        TextStyle(
+          fontFamily: family,
+        ),
       );
     }
 

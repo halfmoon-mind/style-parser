@@ -9,6 +9,18 @@ StyleParser is a Flutter package designed for parsing CSS styles and converting 
 - Supports CSS class and tag selectors.
 - Handles inline styles within HTML tags.
 
+## 지원되는 파싱 스타일
+
+- font-size
+- font-weight
+- background-color
+- font-style
+  - strong
+  - em
+- font-color
+- br
+- font-family
+
 # Usage
 
 ## Importing the package

@@ -1,3 +1,7 @@
+## 0.0.17
+
+- add font family
+
 ## 0.0.16
 
 - update example
