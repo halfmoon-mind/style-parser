@@ -1,3 +1,7 @@
+## 0.0.16
+
+- update example
+
 ## 0.0.15
 
 - add comments for code

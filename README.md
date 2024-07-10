@@ -114,9 +114,9 @@ Widget build(BuildContext context) {
 
 - `cssToTextStyle`
 
-- Converts a CSS string to a map of TextStyle objects.
-- Parameters:
-  - `style` (String): The CSS string to be converted.
+  - Converts a CSS string to a map of TextStyle objects.
+  - Parameters:
+    - `style` (String): The CSS string to be converted.
 
 ## License
 
