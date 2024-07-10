@@ -2,11 +2,17 @@
 
 part of 'style_parser.dart';
 
+/// Internal parser class for handling the conversion logic.
 class _Parser {
   _Parser._();
 
   static final instance = _Parser._();
 
+  /// Converts an HTML string with styles to a TextSpan.
+  ///
+  /// * [style] parameter is the HTML string to be converted.
+  /// * [existingClassStyle] parameter is an optional map of class styles.
+  /// * [existingTagStyle] parameter is an optional map of tag styles.
   TextSpan htmlTagToTextSpan(
     String style, {
     Map<String, TextStyle>? existingClassStyle,
@@ -26,11 +32,15 @@ class _Parser {
     return TextSpan(children: textSpans);
   }
 
+  /// Converts a CSS string to a map of TextStyle objects.
+  ///
+  /// * [style] parameter is the CSS string to be converted.
   Map<String, TextStyle> cssToTextStyle(String style) {
     return _getTextStyleFromCss(style);
   }
 }
 
+/// Recursively converts an HTML element and its children to a TextSpan.
 TextSpan _tourChildText(
   TextStyle textStyle,
   Element html, [
@@ -169,6 +179,7 @@ TextSpan _tourChildText(
   );
 }
 
+/// Parses a CSS string and converts it into a map of TextStyle objects.
 Map<String, TextStyle> _getTextStyleFromCss(String style) {
   Map<String, TextStyle> result = {};
   RegExp exp = RegExp(r'([a-zA-Z0-9\.\#]+)\s*\{([^}]*)\}');
@@ -226,6 +237,7 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
   return result;
 }
 
+/// Utility enum for converting CSS font-weight values to Flutter FontWeight.
 enum _FontWeight {
   w100,
   w200,
@@ -237,6 +249,9 @@ enum _FontWeight {
   w800,
   w900;
 
+  /// Converts a string representation of font-weight to a Flutter FontWeight.
+  ///
+  /// * [fontWeight] parameter is the font-weight string to be converted.
   static FontWeight fontWeight(String fontWeight) {
     switch (fontWeight) {
       case 'w100':

@@ -33,7 +33,7 @@ Map<String, TextStyle> styles = StyleParser.cssToTextStyle(css);
 
 ## Converting HTML to TextSpan
 
-To convert an HTML string with styles to a `TextSpan`:
+To convert an HTML string with styles to a `TextSpan` and apply existing tag styles:
 
 ```dart
 String html = """
@@ -42,7 +42,12 @@ String html = """
   <p class="large">This is large text.</p>
 """;
 
-TextSpan textSpan = StyleParser.htmlTagToTextSpan(html, existingClassStyle: styles);
+Map<String, TextStyle> tagStyles = {
+  'p': TextStyle(color: Colors.blue),
+  'strong': TextStyle(fontWeight: FontWeight.bold),
+};
+
+TextSpan textSpan = StyleParser.htmlTagToTextSpan(html, existingClassStyle: styles, existingTagStyle: tagStyles);
 ```
 
 ## Example
