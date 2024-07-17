@@ -82,8 +82,26 @@ TextSpan _tourChildText(
     if (html.localName == "strong") {
       textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
     }
+    if (html.localName == "b") {
+      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
+    }
     if (html.localName == "em") {
       textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
+    }
+    if (html.localName == "i") {
+      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
+    }
+    if (html.localName == "u") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.underline);
+    }
+    if (html.localName == "strike") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
+    }
+    if (html.localName == "del") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
+    }
+    if (html.localName == "s") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
     }
 
     return TextSpan(
@@ -178,8 +196,26 @@ TextSpan _tourChildText(
     if (child.localName == "strong") {
       textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
     }
+    if (child.localName == "b") {
+      textStyle = textStyle.copyWith(fontWeight: FontWeight.bold);
+    }
     if (child.localName == "em") {
       textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
+    }
+    if (child.localName == "i") {
+      textStyle = textStyle.copyWith(fontStyle: FontStyle.italic);
+    }
+    if (child.localName == "u") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.underline);
+    }
+    if (child.localName == "strike") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
+    }
+    if (child.localName == "del") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
+    }
+    if (child.localName == "s") {
+      textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
     }
 
     children.add(_tourChildText(textStyle, child));

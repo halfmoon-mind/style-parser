@@ -1,6 +1,6 @@
 name: style_parser
 description: "StyleParser is a Flutter package that parses CSS and HTML to convert styles into Flutter's `TextStyle` and `TextSpan` for rich text formatting."
-version: 0.0.17
+version: 0.0.18
 homepage: https://github.com/halfmoon-mind/style-parser
 repository: https://github.com/halfmoon-mind/style-parser
 

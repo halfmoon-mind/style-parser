@@ -1,3 +1,7 @@
+## 0.0.18
+
+- add other tag b, u, i, etc
+
 ## 0.0.17
 
 - add font family
