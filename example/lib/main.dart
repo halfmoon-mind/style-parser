@@ -25,17 +25,23 @@ class MyApp extends StatelessWidget {
     Map<String, TextStyle> styles = StyleParser.cssToTextStyle(css);
     TextSpan textSpan =
         StyleParser.htmlTagToTextSpan(html, existingClassStyle: styles);
+    String target = """
+<p>
+<p>아니 뭐지 <strong>왜 이러지?</strong>  ㅋㅋㅋㅋ<em>ㅋㅋㅋ</em>   아아아아<strong><em>아아아아</em></strong>  오오오오ㅇ<strong> 오오오</strong></p>
+</p>
+""";
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('StyleParser Example'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: RichText(
-            text: textSpan,
-          ),
+        body: Column(
+          children: [
+            Text.rich(
+              StyleParser.htmlTagToTextSpan(target),
+            ),
+          ],
         ),
       ),
     );

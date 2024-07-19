@@ -1,3 +1,7 @@
+## 0.0.19
+
+- parsing fail error fixed
+
 ## 0.0.18
 
 - add other tag b, u, i, etc

@@ -5,6 +5,7 @@ import 'package:html/dom.dart';
 import 'package:html/parser.dart' as parser;
 
 part 'css_to_textstyle.dart';
+part 'html_tag_to_textspan.dart';
 
 /// A utility class for parsing CSS and HTML to Flutter TextStyle and TextSpan.
 /// It should be used as a static class.
