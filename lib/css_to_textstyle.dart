@@ -18,18 +18,11 @@ class _Parser {
     Map<String, TextStyle>? existingClassStyle,
     Map<String, TextStyle>? existingTagStyle,
   }) {
-    final List<Element> parsedHtml = parser.parse(style).body!.children;
-    List<TextSpan> textSpans = [];
-    for (var child in parsedHtml) {
-      textSpans.add(_tourChildText(
-        const TextStyle(),
-        child,
-        existingClassStyle,
-        existingTagStyle,
-      ));
-    }
-
-    return TextSpan(children: textSpans);
+    return _htmlTagToTextSpan(
+      style,
+      existingClassStyle: existingClassStyle,
+      existingTagStyle: existingTagStyle,
+    );
   }
 
   /// Converts a CSS string to a map of TextStyle objects.

@@ -1,3 +1,7 @@
+## 0.0.20
+
+- style apply only last
+
 ## 0.0.19
 
 - parsing fail error fixed

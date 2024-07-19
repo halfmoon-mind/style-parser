@@ -1,5 +1,23 @@
 part of 'style_parser.dart';
 
+TextSpan _htmlTagToTextSpan(
+  String style, {
+  Map<String, TextStyle>? existingClassStyle,
+  Map<String, TextStyle>? existingTagStyle,
+}) {
+  final List<Element> parsedHtml = parser.parse(style).body!.children;
+  List<TextSpan> textSpans = [];
+  for (var child in parsedHtml) {
+    textSpans.add(_tourChildText(
+      const TextStyle(),
+      child,
+      existingClassStyle,
+      existingTagStyle,
+    ));
+  }
+  return TextSpan(children: textSpans);
+}
+
 /// Recursively converts an HTML element and its children to a TextSpan.
 TextSpan _tourChildText(
   TextStyle textStyle,
@@ -131,8 +149,5 @@ TextSpan _tourChildText(
     }
   }
 
-  return TextSpan(
-    children: children,
-    style: textStyle,
-  );
+  return TextSpan(children: children);
 }

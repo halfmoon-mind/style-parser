@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
+            Text.rich(textSpan),
             Text.rich(
               StyleParser.htmlTagToTextSpan(target),
             ),
