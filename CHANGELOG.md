@@ -1,3 +1,7 @@
+## 0.0.21
+
+- target text only have previous style fixed
+
 ## 0.0.20
 
 - style apply only last

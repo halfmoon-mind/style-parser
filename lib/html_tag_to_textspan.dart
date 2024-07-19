@@ -145,7 +145,46 @@ TextSpan _tourChildText(
         children.add(const TextSpan(text: "\n"));
         continue;
       }
-      children.add(_tourChildText(textStyle, element));
+      TextStyle elementTextStyle = textStyle;
+      if (element.localName == "strong") {
+        elementTextStyle =
+            elementTextStyle.copyWith(fontWeight: FontWeight.bold);
+      }
+      if (element.localName == "b") {
+        elementTextStyle =
+            elementTextStyle.copyWith(fontWeight: FontWeight.bold);
+      }
+      if (element.localName == "em") {
+        elementTextStyle =
+            elementTextStyle.copyWith(fontStyle: FontStyle.italic);
+      }
+      if (element.localName == "i") {
+        elementTextStyle =
+            elementTextStyle.copyWith(fontStyle: FontStyle.italic);
+      }
+      if (element.localName == "u") {
+        elementTextStyle =
+            elementTextStyle.copyWith(decoration: TextDecoration.underline);
+      }
+      if (element.localName == "strike") {
+        elementTextStyle =
+            elementTextStyle.copyWith(decoration: TextDecoration.lineThrough);
+      }
+      if (element.localName == "del") {
+        elementTextStyle =
+            elementTextStyle.copyWith(decoration: TextDecoration.lineThrough);
+      }
+      if (element.localName == "s") {
+        elementTextStyle =
+            elementTextStyle.copyWith(decoration: TextDecoration.lineThrough);
+      }
+
+      children.add(_tourChildText(
+        elementTextStyle,
+        element,
+        existingClassStyle,
+        existingTagStyle,
+      ));
     }
   }
 
