@@ -1,3 +1,7 @@
+## 0.0.22
+
+- class style error fixed
+
 ## 0.0.21
 
 - target text only have previous style fixed

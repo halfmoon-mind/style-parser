@@ -18,6 +18,14 @@ class _Parser {
     Map<String, TextStyle>? existingClassStyle,
     Map<String, TextStyle>? existingTagStyle,
   }) {
+    final classStyle = existingClassStyle ?? {};
+    // remove . and # from the class and id selectors
+    for (var key in classStyle.keys.toList()) {
+      if (key.startsWith('.')) {
+        final newKey = key.substring(1);
+        classStyle[newKey] = classStyle.remove(key)!;
+      }
+    }
     return _htmlTagToTextSpan(
       style,
       existingClassStyle: existingClassStyle,

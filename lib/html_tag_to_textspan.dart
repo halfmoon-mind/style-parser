@@ -146,6 +146,84 @@ TextSpan _tourChildText(
         continue;
       }
       TextStyle elementTextStyle = textStyle;
+
+      if (existingTagStyle != null) {
+        final localName = html.localName;
+        final tagStyle = existingTagStyle[localName];
+        if (tagStyle != null) {
+          elementTextStyle = elementTextStyle.copyWith(
+            fontSize: tagStyle.fontSize,
+            fontWeight: tagStyle.fontWeight,
+            color: tagStyle.color,
+            fontStyle: tagStyle.fontStyle,
+            backgroundColor: tagStyle.backgroundColor,
+          );
+        }
+      }
+
+      if (existingClassStyle != null) {
+        final className = (html.attributes['class'] ?? "").split(' ');
+        for (final name in className) {
+          final classStyle = existingClassStyle[name];
+          if (classStyle != null) {
+            elementTextStyle = elementTextStyle.copyWith(
+              fontSize: classStyle.fontSize,
+              fontWeight: classStyle.fontWeight,
+              color: classStyle.color,
+              fontStyle: classStyle.fontStyle,
+              backgroundColor: classStyle.backgroundColor,
+            );
+          }
+        }
+      }
+
+      final style = html.attributes['style'] ?? "";
+      // font size
+      final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (size != null) {
+        elementTextStyle = elementTextStyle.copyWith(
+          fontSize: double.parse(size),
+        );
+      }
+      // font weight
+      final fontWeight = RegExp(r'font-weight:[ ]?(\d+);?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (fontWeight != null) {
+        elementTextStyle = elementTextStyle.merge(
+          TextStyle(
+            fontWeight: _FontWeight.fontWeight(fontWeight),
+          ),
+        );
+      }
+      // font color
+      final color = RegExp(r'color:[ ]?#([0-9a-fA-F]{6});?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (color != null) {
+        elementTextStyle = elementTextStyle.merge(
+          TextStyle(
+            color: Color(int.parse('0xFF$color')),
+          ),
+        );
+      }
+      // font family
+      final family = RegExp(r'font-family:[ ]?(\d+);?')
+          .firstMatch(style)
+          ?.group(1)
+          ?.trim();
+      if (color != null) {
+        elementTextStyle = elementTextStyle.merge(
+          TextStyle(
+            fontFamily: family,
+          ),
+        );
+      }
       if (element.localName == "strong") {
         elementTextStyle =
             elementTextStyle.copyWith(fontWeight: FontWeight.bold);
