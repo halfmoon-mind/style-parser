@@ -28,12 +28,7 @@ class MyApp extends StatelessWidget {
 
     TextSpan textSpan =
         StyleParser.htmlTagToTextSpan(html, existingClassStyle: styles);
-
-    String target = """
-<p>
-<p>아니 뭐지 <strong>왜 이러지?</strong>  ㅋㅋㅋㅋ<em>ㅋㅋㅋ</em>   아아아아<strong><em>아아아아</em></strong>  오오오오ㅇ<strong> 오오오</strong></p>
-</p>
-""";
+    String target = html;
 
     return MaterialApp(
       home: Scaffold(

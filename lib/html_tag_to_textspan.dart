@@ -63,20 +63,15 @@ TextSpan _tourChildText(
     final size =
         RegExp(r'font-size:[ ]?(\d+)pt;?').firstMatch(style)?.group(1)?.trim();
     if (size != null) {
-      textStyle = textStyle.merge(
-        TextStyle(fontSize: double.parse(size)),
-      );
+      textStyle = textStyle.copyWith(fontSize: double.parse(size));
     }
 
     // font weight
     final fontWeight =
         RegExp(r'font-weight:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
     if (fontWeight != null) {
-      textStyle = textStyle.merge(
-        TextStyle(
-          fontWeight: _FontWeight.fontWeight(fontWeight),
-        ),
-      );
+      textStyle =
+          textStyle.copyWith(fontWeight: _FontWeight.fontWeight(fontWeight));
     }
 
     // font color
@@ -85,22 +80,14 @@ TextSpan _tourChildText(
         ?.group(1)
         ?.trim();
     if (color != null) {
-      textStyle = textStyle.merge(
-        TextStyle(
-          color: Color(int.parse('0xFF$color')),
-        ),
-      );
+      textStyle = textStyle.copyWith(color: Color(int.parse('0xFF$color')));
     }
 
     // font family
     final family =
         RegExp(r'font-family:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
     if (color != null) {
-      textStyle = textStyle.merge(
-        TextStyle(
-          fontFamily: family,
-        ),
-      );
+      textStyle = textStyle.copyWith(fontFamily: family);
     }
 
     if (html.localName == "strong") {
@@ -148,7 +135,7 @@ TextSpan _tourChildText(
       TextStyle elementTextStyle = textStyle;
 
       if (existingTagStyle != null) {
-        final localName = html.localName;
+        final localName = element.localName;
         final tagStyle = existingTagStyle[localName];
         if (tagStyle != null) {
           elementTextStyle = elementTextStyle.copyWith(
@@ -162,7 +149,7 @@ TextSpan _tourChildText(
       }
 
       if (existingClassStyle != null) {
-        final className = (html.attributes['class'] ?? "").split(' ');
+        final className = (element.attributes['class'] ?? "").split(' ');
         for (final name in className) {
           final classStyle = existingClassStyle[name];
           if (classStyle != null) {
@@ -177,7 +164,7 @@ TextSpan _tourChildText(
         }
       }
 
-      final style = html.attributes['style'] ?? "";
+      final style = element.attributes['style'] ?? "";
       // font size
       final size = RegExp(r'font-size:[ ]?(\d+)pt;?')
           .firstMatch(style)
@@ -194,10 +181,8 @@ TextSpan _tourChildText(
           ?.group(1)
           ?.trim();
       if (fontWeight != null) {
-        elementTextStyle = elementTextStyle.merge(
-          TextStyle(
-            fontWeight: _FontWeight.fontWeight(fontWeight),
-          ),
+        elementTextStyle = elementTextStyle.copyWith(
+          fontWeight: _FontWeight.fontWeight(fontWeight),
         );
       }
       // font color
@@ -206,10 +191,8 @@ TextSpan _tourChildText(
           ?.group(1)
           ?.trim();
       if (color != null) {
-        elementTextStyle = elementTextStyle.merge(
-          TextStyle(
-            color: Color(int.parse('0xFF$color')),
-          ),
+        elementTextStyle = elementTextStyle.copyWith(
+          color: Color(int.parse('0xFF$color')),
         );
       }
       // font family
@@ -218,11 +201,7 @@ TextSpan _tourChildText(
           ?.group(1)
           ?.trim();
       if (color != null) {
-        elementTextStyle = elementTextStyle.merge(
-          TextStyle(
-            fontFamily: family,
-          ),
-        );
+        elementTextStyle = elementTextStyle.copyWith(fontFamily: family);
       }
       if (element.localName == "strong") {
         elementTextStyle =

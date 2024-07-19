@@ -1,3 +1,7 @@
+## 0.0.23
+
+- using wrong global variable error fixed
+
 ## 0.0.22
 
 - class style error fixed

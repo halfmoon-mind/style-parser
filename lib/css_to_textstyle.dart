@@ -96,11 +96,7 @@ Map<String, TextStyle> _getTextStyleFromCss(String style) {
     final family =
         RegExp(r'font-family:[ ]?(\d+);?').firstMatch(style)?.group(1)?.trim();
     if (color != null) {
-      textStyle = textStyle.merge(
-        TextStyle(
-          fontFamily: family,
-        ),
-      );
+      textStyle = textStyle.copyWith(fontFamily: family);
     }
 
     if (textStyle != const TextStyle()) {
